@@ -20,3 +20,11 @@ DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB
 engine = create_engine(DATABASE_URL, echo=True, pool_pre_ping=True)
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 Base = declarative_base()
+
+# FastAPI 의존성용
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

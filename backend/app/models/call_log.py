@@ -18,10 +18,10 @@ class CallLog(Base):
     callee = Column(String(32), nullable=False)
     agent_ext = Column(String(16), nullable=True, index=True)
 
-    started_at = Column(DateTime(fsp=6), nullable=False)
-    ringing_at = Column(DateTime(fsp=6), nullable=True)
-    answered_at = Column(DateTime(fsp=6), nullable=True)
-    ended_at = Column(DateTime(fsp=6), nullable=False)
+    started_at = Column(DateTime, nullable=False)
+    ringing_at = Column(DateTime, nullable=True)
+    answered_at = Column(DateTime, nullable=True)
+    ended_at = Column(DateTime, nullable=False)
 
     ring_sec = Column(Integer, default=0)
     talk_sec = Column(Integer, default=0)
@@ -29,5 +29,5 @@ class CallLog(Base):
 
     hangup_cause = Column(String(64), nullable=True)
 
-    created_at = Column(DateTime(fsp=6), server_default=func.now())
-    updated_at = Column(DateTime(fsp=6), server_default=func.now(), onupdate=func.now())
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())

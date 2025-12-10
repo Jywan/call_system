@@ -11,8 +11,8 @@ class Agent(Base):
     password = Column(String(255), nullable=True)
     is_active = Column(Boolean, default=True)
     
-    last_login_at = Column(DateTime(fsp=6), nullable=True)
-    last_logout_at = Column(DateTime(fsp=6), nullable=True)
+    last_login_at = Column(DateTime, nullable=True)
+    last_logout_at = Column(DateTime, nullable=True)
 
-    create_at = Column(DateTime(fsp=6), server_default=func.now())
-    update_at = Column(DateTime(fsp=6), server_default=func.now(), onupdate=func.now())
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
