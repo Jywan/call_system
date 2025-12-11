@@ -4,6 +4,11 @@ from app.models.call_log import CallLog, DirectionEnum
 from app.schemas.cdr_schema import FreeSwitchCdr
 
 def create_call_log_from_cdr(db: Session, cdr: FreeSwitchCdr) -> CallLog:
+
+    if cdr.loopback_leg and cdr.loopback_leg != "A":
+        # B-leg → 저장하지 않음
+        return None
+    
     if cdr.direction.lower() == "inbound":
         direction = DirectionEnum.INBOUND
     else:
@@ -16,7 +21,7 @@ def create_call_log_from_cdr(db: Session, cdr: FreeSwitchCdr) -> CallLog:
 
     call_log = CallLog(
         call_uuid=cdr.uuid,
-        direction=cdr.direction,
+        direction=direction,
         caller=cdr.caller_id_number,
         callee=cdr.destination_number,
         agent_ext=None,  # 추후 라우팅 로직 추가 예정
