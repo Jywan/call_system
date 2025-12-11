@@ -1,7 +1,7 @@
 from typing import List, Optional
 from sqlalchemy.orm import Session
 from app.models.agent import Agent
-from app.schemas.agent import AgentCreate
+from app.schemas.agent_schema import AgentCreate
 
 def get_agents(db: Session, skip: int = 0, limit: int = 50, is_active: Optional[bool] = None) -> List[Agent]:
     """

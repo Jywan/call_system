@@ -7,12 +7,14 @@ from app.models.call_log import CallLog
 
 # 라우터
 from app.routers.agent_router import router as agent_router
+from app.routers.freeswitch_router import router as freeswitch_router
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
 app.include_router(agent_router)
+app.include_router(freeswitch_router)
 
 @app.get("/health")
 def health_check():

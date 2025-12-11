@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
-from app.schemas.agent import AgentOut, AgentCreate
+from app.schemas.agent_schema import AgentOut, AgentCreate
 from app.services.agent_service import (get_agents, get_agent_by_id, create_agent)
 
 router = APIRouter(prefix="/agents", tags=["agents"])
