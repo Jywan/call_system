@@ -5,11 +5,18 @@ from app.schemas.cdr_schema import FreeSwitchCdr
 
 def create_call_log_from_cdr(db: Session, cdr: FreeSwitchCdr) -> CallLog:
 
-    if cdr.loopback_leg and cdr.loopback_leg != "A":
-        # B-leg → 저장하지 않음
+    # 방향 정규화
+    raw_direction = (cdr.direction or "").lower()
+
+    if (
+        raw_direction == "outbound"
+        and cdr.loopback_leg
+        and cdr.loopback_leg.upper() != "A"
+    ):
+        # 아웃바운드 + loopback B-leg → 저장하지 않음
         return None
     
-    if cdr.direction.lower() == "inbound":
+    if raw_direction == "inbound":
         direction = DirectionEnum.INBOUND
     else:
         direction = DirectionEnum.OUTBOUND
